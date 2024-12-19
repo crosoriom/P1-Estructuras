@@ -1,6 +1,10 @@
+#ifndef SYSTICK_H
+#define SYSTICK_H
 
 #include <stdint.h>
 
-void configure_systick_and_start(void);
-uint32_t systick_GetTick(void);
+void systick_init(uint32_t ticks);
+uint32_t systick_getTick(void);
 void systick_reset(void);
+
+#endif

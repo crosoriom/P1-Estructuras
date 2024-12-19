@@ -1,38 +1,38 @@
 #include "systick.h"
 
 typedef struct {
-    volatile uint32_t CTRL;
-    volatile uint32_t LOAD;
-    volatile uint32_t VAL;
-    volatile uint32_t CALIB;
+	volatile uint32_t CTRL;
+	volatile uint32_t LOAD;
+	volatile uint32_t VAL;
+	volatile uint32_t CALIB;
+}SysTick_t;
 
-} SysTick_t;
+#define SYSTICK ((SysTick_t *)0xE000E010UL)	//Base address if System Timer.
 
+volatile uint32_t ms_counter = 0;
 
-#define SysTick ((SysTick_t *)0xE000E010) // Base address of SysTick
-
-
-volatile uint32_t ms_counter = 0; // Counter for milliseconds
-
-
-void configure_systick_and_start(void)
+void systick_init(uint32_t ticks)
 {
-    SysTick->CTRL = 0x4;     // Disable SysTick for configuration, use processor clock
-    SysTick->LOAD = 3999;    // Reload value for 1 ms (assuming 4 MHz clock)
-    SysTick->CTRL = 0x7;     // Enable SysTick, processor clock, no interrupt
+	SYSTICK->CTRL = 0x4;					//Write 100 on bits 2,1 and 0 in STK_CTRL Register. Turns off the System Timer for configuration and the exception requester.
+	
+	if(ticks > 0x00FFFFFF)
+		ticks = 0x00FFFFFF;
+	SYSTICK->LOAD = ticks;					//Load the desired time for the Syster Timer Exception
+
+	SYSTICK->CTRL = 0x7;					//Write 111 on bits 2,1 and 0 in STK_CTRL Register. Turns on the System Timer and the Exception Requester.
 }
 
-uint32_t systick_GetTick(void)
+uint32_t systick_getTick(void)
 {
-    return ms_counter;
+	return ms_counter;
 }
 
 void systick_reset(void)
 {
-    ms_counter = 0;
+	ms_counter = 0;
 }
 
 void SysTick_Handler(void)
 {
-    ms_counter++;
+	ms_counter++;
 }

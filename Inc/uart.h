@@ -23,7 +23,9 @@ typedef struct {
 } USART_TypeDef;
 
 // Map USART base addresses to USART_TypeDef structures
+// #define USART1 ((USART_TypeDef *) USART1_BASE)
 #define USART2 ((USART_TypeDef *) USART2_BASE)
+// #define USART3 ((USART_TypeDef *) USART3_BASE)
 
 // Bit definitions for USART_CR1 register
 #define USART_CR1_UE      (1U << 0)    // USART enable
@@ -54,7 +56,7 @@ typedef enum {
     CMD_CLOSE
 } command_t;
 
-void usart2_init(void);
+void UART_Init (USART_TypeDef * UARTx);
 void usart2_send_string(const char *str);
 
 // Función para obtener el último comando recibido (no bloqueante)

@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "systick.h": "c",
+        "rcc.h": "c",
+        "uart.h": "c",
+        "syscfg.h": "c",
+        "gpio.h": "c"
+    }
+}
