@@ -7,8 +7,6 @@ typedef struct {
 	volatile uint32_t CALIB;
 }SysTick_t;
 
-#define SYSTICK ((SysTick_t *)0xE000E010UL)	//Base address if System Timer.
-
 volatile uint32_t ms_counter = 0;
 
 void systick_init(uint32_t ticks)

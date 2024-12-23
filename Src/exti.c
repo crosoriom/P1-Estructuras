@@ -2,8 +2,10 @@
 #include "gpio.h"
 #include "nvic.h"
 
-void gpio_interrupt_enable(uint8_t pin, Trigger_t trigger)
+void gpio_interrupt_enable(gpio_t *GPIOx, PINx pin, Trigger_t trigger)
 {
+    exti_map(GPIOx, pin);
+
     EXTI->IMR1 |= (1 << pin);
     switch (trigger) {
     case RISING_EDGE:

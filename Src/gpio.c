@@ -66,31 +66,3 @@ void gpio_toggle_level(gpio_t *GPIOx, PINx pin)
 {
 	GPIOx->ODR ^= (0x1 << pin);
 }
-
-volatile uint8_t button_pressed = 0; // Flag to indicate button press
-uint8_t button_driver_get_event(void)
-{
-    return button_pressed;
-}
-
-uint32_t b1_tick = 0;
-void detect_button_press(void)
-{
-    if (systick_getTick() - b1_tick < 50) {
-        return; // Ignore bounces of less than 50 ms
-    } else if (systick_getTick() - b1_tick > 500) {
-        button_pressed = 1; // single press
-    } else {
-        button_pressed = 2; // double press
-    }
-
-    b1_tick = systick_getTick();
-}
-
-void EXTI15_10_IRQHandler(void)
-{
-    if (EXTI->PR1 & (1 << 13)) {
-        EXTI->PR1 = (1 << 13); // Clear pending bit
-        detect_button_press();
-    }
-}

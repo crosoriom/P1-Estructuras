@@ -4,6 +4,8 @@
         "rcc.h": "c",
         "uart.h": "c",
         "syscfg.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "nvic.h": "c",
+        "exti.h": "c"
     }
 }

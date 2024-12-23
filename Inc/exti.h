@@ -2,6 +2,7 @@
 #define EXTI_H
 
 #include <stdint.h>
+#include "gpio.h"
 
 #define EXTI ((ExtendedInterrupts_t *)0x40010400UL)
 
@@ -27,6 +28,6 @@ typedef enum {
     BOTH_EDGES
 }Trigger_t;
 
-void gpio_interrupt_enable(uint8_t pin, Trigger_t trigger);
+void gpio_interrupt_enable(gpio_t *GPIOx, PINx pin, Trigger_t trigger);
 
 #endif

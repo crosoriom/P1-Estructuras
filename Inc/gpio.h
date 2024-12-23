@@ -59,6 +59,5 @@ void gpio_set_lowLevel(gpio_t *GPIOx, PINx pin);
 void gpio_set_highLevel(gpio_t *GPIOx, PINx pin);
 int gpio_get_level(gpio_t *GPIOx, PINx pin, InputMode_t mode);
 void gpio_toggle_level(gpio_t *GPIOx, PINx pin);
-uint8_t button_driver_get_event(void);
 
 #endif
